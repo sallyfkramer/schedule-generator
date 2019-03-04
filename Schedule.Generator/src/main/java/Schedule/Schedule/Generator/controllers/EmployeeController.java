@@ -19,7 +19,7 @@ public class EmployeeController {
     @RequestMapping(value = "")
     public String roster(Model model){
 
-//        model.addAttribute("employees", employeeDao.findAll());
+        model.addAttribute("employees", employeeDao.findAll());
         model.addAttribute("title","All Employees");
 
         return "employee/roster";

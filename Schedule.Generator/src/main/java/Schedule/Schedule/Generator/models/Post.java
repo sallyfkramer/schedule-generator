@@ -17,10 +17,10 @@ public class Post {
     @Size(min = 2, max = 10)
     private String name;
 
-    @ManyToOne
-    private Training trainings;
-    //@JoinColumn(name = "training_id")
-    //private List<Training> trainings = new ArrayList<>();
+//    @ManyToOne
+//    private Training trainings;
+//    //@JoinColumn(name = "training_id")
+//    //private List<Training> trainings = new ArrayList<>();
 
     public Post() {}
 

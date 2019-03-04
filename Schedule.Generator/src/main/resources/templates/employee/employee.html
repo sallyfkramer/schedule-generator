@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${employees} and ${employees.size()}">no employees yet</p>
+
+
+<table class="table">
+    <tr>
+        <th>Last Name</th>
+
+    </tr>
+
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.name}"></td>
+
+    </tr>
+
+</table>
+
+<a href="/employee/add">Add Employee</a> |
+
 
 </body>
 </html>

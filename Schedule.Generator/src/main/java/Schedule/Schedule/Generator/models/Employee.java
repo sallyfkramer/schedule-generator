@@ -22,23 +22,30 @@ public class Employee {
 
     //TODO: add  connection to training//
 
-    @ManyToMany(mappedBy = "employees")
-    private List<Training> trainings;
+//    @ManyToMany(mappedBy = "employees")
+//    private List<Training> trainings;
+//
+//    //TODO: add connection to shifts//
+//
+//    @ManyToMany(mappedBy =  "employees")
+//    private List<Shift> shifts;
 
-    //TODO: add connection to shifts//
-
-    @ManyToMany(mappedBy =  "employees")
-    private List<Shift> shifts;
 
 
-//Caused by: org.hibernate.AnnotationException: @OneToOne or @ManyToOne on Schedule.Schedule.Generator.models.Post.trainings references an unknown entity: java.util.List
 
     //getters and setters//
 
 
+    public int getId() {
+        return id;
+    }
 
 
+    public String getName() {
+        return name;
+    }
 
-
-
+    public void setName(String name) {
+        this.name = name;
+    }
 }

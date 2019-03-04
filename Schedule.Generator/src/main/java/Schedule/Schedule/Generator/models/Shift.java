@@ -14,10 +14,10 @@ public class Shift {
     @GeneratedValue
     private int id;
 
-    @NotNull
-    @Size(min = 3, max = 35)
-    private String name;
-
-    @ManyToOne
-    private List<Employee> employeeList;
+//    @NotNull
+//    @Size(min = 3, max = 35)
+//    private String name;
+//
+//    @ManyToOne
+//    private List<Employee> employeeList;
 }

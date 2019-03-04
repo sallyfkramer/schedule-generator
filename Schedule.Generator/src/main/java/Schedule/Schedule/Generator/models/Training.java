@@ -17,13 +17,13 @@ public class Training {
     @Size(min=3, max = 25)
     private String name;
 
-    @ManyToMany(mappedBy =  "employee")
-    private List<Employee> employees;
-
-    @OneToMany
-    @JoinColumn(name = "post_id")
-    //private List<Cheese> cheeses = new ArrayList<>();
-    private List<Post> post = new ArrayList<>();
+//    @ManyToMany(mappedBy =  "employee")
+//    private List<Employee> employees;
+//
+//    @OneToMany
+//    @JoinColumn(name = "post_id")
+//    //private List<Cheese> cheeses = new ArrayList<>();
+//    private List<Post> post = new ArrayList<>();
 
     public Training() {}
 
