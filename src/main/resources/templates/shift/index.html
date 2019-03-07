@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${shifts} and ${shifts.size()}">no shifts yet</p>
+
+<table class="table">
+
+    <tr>
+        <th>Shift</th>
+        <th>Description</th>
+    </tr>
+
+
+    <tr th:each="shift : ${shifts}">
+        <td th:text="${shift.name}"></td>
+        <td th:text="${shift.description}"></td>
+
+    </tr>
+
+</table>
+
+<a href="/shift/add">Add Shift</a> |
+</body>
+</html>
