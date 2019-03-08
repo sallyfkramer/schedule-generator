@@ -37,7 +37,6 @@ public class EmployeeController {
     public String addEmployeeform(Model model) {
 
         model.addAttribute("title","Add Employee");
-//        model.addAttribute("trainings", trainingDao.findAll());
         model.addAttribute(new Employee());
 
         return "employee/add";

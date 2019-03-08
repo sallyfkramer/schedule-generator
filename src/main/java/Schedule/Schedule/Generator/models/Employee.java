@@ -24,13 +24,9 @@ public class Employee {
     @Size(min=3, max=45)
     private String firstName;
 
-//    @ManyToMany(mappedBy = "employees")
-//    private List<Training> trainings;
+    @ManyToMany
+    private List<Training> trainings;
 
-    public Employee(String lastName, String firstName){
-        this.firstName= firstName;
-        this.lastName = lastName;
-    }
 
     public Employee() { }
 
@@ -38,13 +34,6 @@ public class Employee {
     //getters and setters//
 
 
-//    public List<Training> getTrainings() {
-//        return trainings;
-//    }
-//
-//    public void setTrainings(List<Training> trainings) {
-//        this.trainings = trainings;
-//    }
 
     public int getId() {
         return id;
@@ -65,4 +54,8 @@ public class Employee {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
+    public void addItem(Training item) {trainings.add(item);}
+
+    public  List<Training> getTrainings() {return trainings; }
 }

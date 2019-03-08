@@ -22,11 +22,15 @@
         <th>Last Name</th>
         <th>First Name</th>
 
+
     </tr>
 
     <tr th:each="employee : ${employees}">
-        <td th:text="${employee.lastName}"></td>
+        <!--<td th:text="${employee.lastName}"></td>-->
+        <td> <a th:href="'/employee/view/' + ${employee.id}" th:text="${employee.lastName}"></a></td>
+
         <td th:text="${employee.firstName}"></td>
+
 
     </tr>
 

@@ -30,8 +30,10 @@ public class Training {
     @JoinColumn(name= "training_id")
     private List<Post> posts = new ArrayList<>();
 
-//    @ManyToMany(mappedBy =  "employee")
-//    private List<Employee> employees;
+    @ManyToMany(mappedBy =  "trainings")
+    private List<Employee> employees;
+
+    public Training() {}
 
     public int getId() {
         return id;
@@ -61,13 +63,5 @@ public class Training {
         this.posts = posts;
     }
 
-    public Training() {}
-//
-//    public List<Employee> getEmployees() {
-//        return employees;
-//    }
-//
-//    public void setEmployees(List<Employee> employees) {
-//        this.employees = employees;
-//    }
+
 }

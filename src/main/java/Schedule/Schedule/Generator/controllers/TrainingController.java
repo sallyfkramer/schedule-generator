@@ -1,6 +1,5 @@
 package Schedule.Schedule.Generator.controllers;
 
-import Schedule.Schedule.Generator.models.Employee;
 import Schedule.Schedule.Generator.models.Training;
 import Schedule.Schedule.Generator.models.data.EmployeeDao;
 import Schedule.Schedule.Generator.models.data.TrainingDao;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,8 +20,8 @@ public class TrainingController {
     @Autowired
     private TrainingDao trainingDao;
 
-    @Autowired
-    private EmployeeDao employeeDao;
+//    @Autowired
+//    private EmployeeDao employeeDao;
 
     @RequestMapping(value = "")
     public String index(Model model){
@@ -56,7 +54,7 @@ public class TrainingController {
         return "redirect:";
     }
 
-
+//TODO make Remove page
 
 
 }
