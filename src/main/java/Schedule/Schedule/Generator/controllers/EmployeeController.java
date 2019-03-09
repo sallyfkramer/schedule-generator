@@ -1,8 +1,10 @@
 package Schedule.Schedule.Generator.controllers;
 
 import Schedule.Schedule.Generator.models.Employee;
+import Schedule.Schedule.Generator.models.Training;
 import Schedule.Schedule.Generator.models.data.EmployeeDao;
 import Schedule.Schedule.Generator.models.data.TrainingDao;
+import Schedule.Schedule.Generator.models.forms.AddTrainingForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,18 +59,43 @@ public class EmployeeController {
     @RequestMapping(value = "view/{employeeId}", method = RequestMethod.GET)
     public String viewEmployee(Model model, @PathVariable int employeeId){
         Employee employee = employeeDao.findById(employeeId).orElse(null);
-        model.addAttribute("title", employee.getLastName());
+        model.addAttribute("title", employee.getFirstName() +
+                " " + employee.getLastName() );
+        model.addAttribute("trainings", employee.getTrainings());
+        model.addAttribute("employeeId", employee.getId());
         return "employee/view";
     }
 
+    @RequestMapping(value = "add-training/{employeeId}", method = RequestMethod.GET)
+    public String addTraining(Model model, @PathVariable int employeeId) {
 
-//    @RequestMapping(value = "view/{menuId}", method = RequestMethod.GET)
-//    public String viewMenu(Model model, @PathVariable int menuId) {
-//        Menu menu = menuDao.findOne(menuId);
-//        model.addAttribute("title", menu.getName());
-//        model.addAttribute("cheeses", menu.getCheeses());
-//        model.addAttribute("menuId", menu.getId());
-//
-//        return "menu/view";
+        Employee employee = employeeDao.findById(employeeId).orElse(null);
+
+        AddTrainingForm form = new AddTrainingForm(
+                trainingDao.findAll(), employee);
+
+        model.addAttribute("title", "Add training to " + employee.getFirstName() +
+                " " + employee.getLastName()  );
+        model.addAttribute("form", form);
+        model.addAttribute("employee", employee);
+        return "employee/add-training";
+    }
+
+    @RequestMapping(value = "add-training", method = RequestMethod.POST)
+    public String addTraining(Model model, @ModelAttribute @Valid AddTrainingForm form, Errors errors){
+
+        if (errors.hasErrors()) {
+            model.addAttribute("form", form);
+            return "employee/add-training";
+        }
+
+        Training theTraining = form.getTraining();
+        Employee theEmployee = form.getEmployee();
+        theEmployee.addItem(theTraining);
+        employeeDao.save(theEmployee);
+
+        return "redirect:/employee/view/" + theEmployee.getId();
+    }
+
 
 }

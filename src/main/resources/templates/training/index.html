@@ -13,10 +13,10 @@
         <th>Description</th>
     </tr>
 
-    <!--<tr th:each="training : ${trainings}">-->
-        <!--<td th:text="${training.name}"></td>-->
-        <!--<td th:text="${training.description"}></td>-->
-    <!--</tr>-->
+    <tr th:each="training : ${trainings}">
+        <td th:text="${training.name}"></td>
+        <td th:text="${training.description"}></td>
+    </tr>
 
     <tr th:each="training : ${trainings}">
         <td th:text="${training.name}"></td>
