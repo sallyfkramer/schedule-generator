@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+
+<form method="post" style="max-width:600px;" th:object="${post}">
+    <div class="form-group">
+        <label th:for="name">Name</label>
+        <input class="form-control" th:field="*{name}" />
+        <span th:errors="*{name}" class="error"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label th:for="description">Description</label>
+        <input class="form-control" th:field="*{description}" />
+        <span th:errors="*{description}" class="error"></span>
+
+    </div>
+
+    <div class="form-group">
+        <label th:for="training">Training</label>
+        <select name="trainingId">
+            <option th:each="training : ${trainings}"
+                    th:text="${training.name}"
+                    th:value="${training.id}"></option>
+        </select>
+    </div>
+    <input type="submit" value="Add Post"/>
+</form>
+
+
+</body>
+
+</html>

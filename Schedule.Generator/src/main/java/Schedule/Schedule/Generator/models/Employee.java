@@ -18,34 +18,44 @@ public class Employee {
 
     @NotNull
     @Size(min=3, max=45)
-    private String name;
+    private String lastName;
 
-    //TODO: add  connection to training//
+    @NotNull
+    @Size(min=3, max=45)
+    private String firstName;
 
-//    @ManyToMany(mappedBy = "employees")
-//    private List<Training> trainings;
-//
-//    //TODO: add connection to shifts//
-//
-//    @ManyToMany(mappedBy =  "employees")
-//    private List<Shift> shifts;
+    @ManyToMany
+    private List<Training> trainings;
 
 
+    public Employee() { }
 
 
     //getters and setters//
+
 
 
     public int getId() {
         return id;
     }
 
-
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void addItem(Training item) {trainings.add(item);}
+
+    public  List<Training> getTrainings() {return trainings; }
 }

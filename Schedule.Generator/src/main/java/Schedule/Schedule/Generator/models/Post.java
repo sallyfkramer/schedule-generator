@@ -3,8 +3,7 @@ package Schedule.Schedule.Generator.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 public class Post {
@@ -17,14 +16,36 @@ public class Post {
     @Size(min = 2, max = 10)
     private String name;
 
-//    @ManyToOne
-//    private Training trainings;
-//    //@JoinColumn(name = "training_id")
-//    //private List<Training> trainings = new ArrayList<>();
+    @NotNull
+    @Size(min = 2, max = 100)
+    private String description;
+
+
+    @ManyToOne
+    private Training training;
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
+    }
+
+    public Post(String name, String description){
+        this.name= name;
+        this.description= description;
+    }
 
     public Post() {}
 
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getId() {
         return id;
@@ -38,11 +59,4 @@ public class Post {
         this.name = name;
     }
 
-//    public List<Training> getTrainings() {
-//        return trainings;
-//    }
-//
-//    public void setTrainings(List<Training> trainings) {
-//        this.trainings = trainings;
-//    }
 }

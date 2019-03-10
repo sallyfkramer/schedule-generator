@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${posts} and ${posts.size()}">no posts yet
+
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Training</th>
+
+    </tr>
+
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.name}"></td>
+        <td th:text="${post.description}"></td>
+        <td th:text="${post.training.name}"></td>
+
+    </tr>
+
+</table>
+
+<a href="/post/add">Add Post</a> |
+
+
+</body>
+</html>
