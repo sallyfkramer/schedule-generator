@@ -19,16 +19,6 @@ public class AddTrainingForm {
 
     private Employee employee;
 
-    private Training training;
-
-    public Training getTraining() {
-        return training;
-    }
-
-    public void setTraining(Training training) {
-        this.training = training;
-    }
-
     public AddTrainingForm() {
     }
 

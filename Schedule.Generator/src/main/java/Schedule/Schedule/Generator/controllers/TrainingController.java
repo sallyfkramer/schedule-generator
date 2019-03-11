@@ -23,8 +23,8 @@ public class TrainingController {
     @Autowired
     private TrainingDao trainingDao;
 
-    @Autowired
-    private EmployeeDao employeeDao;
+//    @Autowired
+//    private EmployeeDao employeeDao;
 
     @RequestMapping(value = "")
     public String index(Model model){

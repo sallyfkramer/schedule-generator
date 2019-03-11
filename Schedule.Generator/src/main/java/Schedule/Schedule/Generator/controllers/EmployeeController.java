@@ -89,7 +89,7 @@ public class EmployeeController {
             return "employee/add-training";
         }
 
-        Training theTraining = form.getTraining();
+        Training theTraining = trainingDao.findById(form.getTrainingId()).orElse(null);
         Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
         theEmployee.addItem(theTraining);
         employeeDao.save(theEmployee);

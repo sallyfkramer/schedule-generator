@@ -15,14 +15,9 @@
 
     <tr th:each="training : ${trainings}">
         <td th:text="${training.name}"></td>
-        <td th:text="${training.description"}></td>
+        <td th:text="${training.description}"}></td>
     </tr>
 
-    <tr th:each="training : ${trainings}">
-        <td th:text="${training.name}"></td>
-        <td th:text="${training.description}"></td>
-
-    </tr>
 </table>
 
 <a href="/training/add">Add Training</a> |
