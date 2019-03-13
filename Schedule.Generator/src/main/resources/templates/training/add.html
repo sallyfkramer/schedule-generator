@@ -14,10 +14,20 @@
         <input class="form-control" th:field="*{name}" />
         <span th:errors="*{name}" class="error"></span>
     </div>
+
     <div class="form-group">
         <label th:for="description">Describe the role.</label>
         <input class="form-control" th:field="*{description}" />
         <span th:errors="*{description}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="rarity">Training Rarity</label>
+        <select th:field="*{rarity}">
+            <option th:each="rarity : ${rarities}"
+                    th:text="${rarity.name}"
+                    th:value="${rarity}"></option>
+        </select>
     </div>
     <input type="submit" value="Add Training"/>
 </form>

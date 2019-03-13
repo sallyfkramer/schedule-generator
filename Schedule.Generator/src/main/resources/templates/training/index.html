@@ -11,11 +11,13 @@
     <tr>
         <th>Training</th>
         <th>Description</th>
+        <th>Rarity</th>
     </tr>
 
     <tr th:each="training : ${trainings}">
         <td th:text="${training.name}"></td>
         <td th:text="${training.description}"}></td>
+        <td th:text="${training.rarity}"></td>
     </tr>
 
 </table>

@@ -21,9 +21,10 @@ public class Training {
     @Size(min=3, max=50)
     private String description;
 
-    public Training(String name, String description){
+    public Training(String name, String description, Rarity rarity){
         this.name= name;
         this.description= description;
+        this.rarity= rarity;
     }
 
     @OneToMany
@@ -33,7 +34,7 @@ public class Training {
     @ManyToMany(mappedBy =  "trainings")
     private List<Employee> employees;
 
-    //TODO: add rarity enum//
+    private Rarity rarity;
 
     public Training() {}
 
@@ -65,5 +66,19 @@ public class Training {
         this.posts = posts;
     }
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
 
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public Rarity getRarity() {
+        return rarity;
+    }
+
+    public void setRarity(Rarity rarity) {
+        this.rarity = rarity;
+    }
 }

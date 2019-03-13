@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+<div>
+    <h3>
+        <a href="/employee">Roster</a>
+    </h3>
+    <p>This is a list of all current employees.
+        You can add or remove employees.
+        If you click on the last name of an employee it will take you to their profile.
+        There you can view or edit their schedule and training levels.</p>
+
+</div>
+<div>
+    <h3>
+        <a href="/training">Training List</a>
+    </h3>
+    <p>This is a list of all of the training types.
+        Each training has a rarity
+        so that the posts that require the most specialized
+        training get priority.
+        You can add or remove training types.
+        If you click on a training's name
+        it will take you to a roster of the employees with that training.
+    </p>
+
+</div>
+<div>
+    <h3>
+        <a href="/post">Post List</a>
+    </h3>
+    <p>This is a list of all the posts.
+        They are organized by which training types they require.
+        Each post also has a priority level to make sure that the most needed posts
+        get posted first when we are short staffed.
+        You can add or delete posts here.
+    </p>
+</div>
+<div>
+    <h3>
+        <a href="/shift">Shifts</a>
+    </h3>
+    <p>This is a list of each shift in the course of the week.
+        If you click on a shift, it will pull up a roster of the employees that work that shift.</p>
+</div>
+
+</body>
+</html>

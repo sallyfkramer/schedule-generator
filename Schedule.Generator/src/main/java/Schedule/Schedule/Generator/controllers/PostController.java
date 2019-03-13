@@ -55,6 +55,7 @@ public class PostController {
         if (errors.hasErrors()){
             model.addAttribute("title", "Add Employee");
             model.addAttribute("trainings", trainingDao.findAll());
+            model.addAttribute("priorities", Priority.values());
             return "post/add";
         }
 
