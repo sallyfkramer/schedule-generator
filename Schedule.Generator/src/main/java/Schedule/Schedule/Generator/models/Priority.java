@@ -1,47 +1,29 @@
 package Schedule.Schedule.Generator.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+public enum Priority {
 
-@Entity
-public class Priority {
+    MANDATORY ("Mandatory", "Museum cannot safely open without these minimum staffing needs covered."),
+    URGENT ("Urgent", "Posts that need to be filled for normal museum operation."),
+    STRONG ("Strong Preference","Posts that might go empty on a snow day but are almost always covered."),
+    PREFERRED ("Preferred","Posts that might go empty if there are several call-ins."),
+    OPTIONAL ("Optional", "Posts that are filled for best practices but can be left empty if needed."),
+    LOW ("Most Optional", "First few posts that get left empty when needed."),
+    EXTRA ("Extra", "Posts that can be filled in case of over staffing.");
 
-    @Id
-    @GeneratedValue
-    private int id;
 
-    @NotNull
-    @Size(min=3, max=45)
-    private String name;
+    private final String name;
+    private final String description;
 
-    @NotNull
-    @Size(min=3, max=100)
-    private String description;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    Priority(String name, String description) {
+        this.name = name;
+        this.description=description;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }

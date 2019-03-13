@@ -20,21 +20,17 @@ public class Post {
     @Size(min = 2, max = 100)
     private String description;
 
+    private Priority priority;
+
 
     @ManyToOne
     private Training training;
 
-    public Training getTraining() {
-        return training;
-    }
 
-    public void setTraining(Training training) {
-        this.training = training;
-    }
-
-    public Post(String name, String description){
+    public Post(String name, String description, Priority priority){
         this.name= name;
         this.description= description;
+        this.priority= priority;
     }
 
     public Post() {}
@@ -59,4 +55,19 @@ public class Post {
         this.name = name;
     }
 
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
 }

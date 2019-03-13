@@ -6,15 +6,16 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<div></div>
+
+<h4>Trainings:</h4>
 <ul>
     <li th:each="training : ${trainings}" th:text="${training.name} "></li>
 </ul>
 
 <p th:unless="${trainings.size()}"><i>No training yet.</i></p>
 
-<div></div>
 
+<h4>Schedule:</h4>
 <ul>
     <li th:each="shift : ${shifts}" th:text="${shift.name}"></li>
 </ul>

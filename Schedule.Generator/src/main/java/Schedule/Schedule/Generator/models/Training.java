@@ -33,6 +33,8 @@ public class Training {
     @ManyToMany(mappedBy =  "trainings")
     private List<Employee> employees;
 
+    //TODO: add rarity enum//
+
     public Training() {}
 
     public int getId() {

@@ -31,6 +31,16 @@
                     th:value="${training.id}"></option>
         </select>
     </div>
+
+
+    <div class="form-group">
+        <label th:for="priority">Priority Level</label>
+        <select th:field="*{priority}">
+            <option th:each="priority : ${priorities}"
+                    th:text="${priority.name}"
+                    th:value="${priority}"></option>
+        </select>
+    </div>
     <input type="submit" value="Add Post"/>
 </form>
 

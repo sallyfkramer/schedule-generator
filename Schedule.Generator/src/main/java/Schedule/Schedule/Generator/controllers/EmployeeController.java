@@ -110,5 +110,8 @@ public class EmployeeController {
         return "redirect:/employee/view/" + theEmployee.getId();
     }
 
+//TODO: add edit schedule page//
 
+
+//TODO: add remove function//
 }

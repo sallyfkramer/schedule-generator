@@ -1,6 +1,7 @@
 package Schedule.Schedule.Generator.controllers;
 
 import Schedule.Schedule.Generator.models.Post;
+import Schedule.Schedule.Generator.models.Priority;
 import Schedule.Schedule.Generator.models.Training;
 import Schedule.Schedule.Generator.models.data.PostDao;
 import Schedule.Schedule.Generator.models.data.TrainingDao;
@@ -42,6 +43,7 @@ public class PostController {
         model.addAttribute("title", "Add new post");
         model.addAttribute(new Post());
         model.addAttribute("trainings", trainingDao.findAll() );
+        model.addAttribute("priorities", Priority.values());
         return "post/add";
     }
 
@@ -62,6 +64,8 @@ public class PostController {
         return "redirect:";
     }
 
+//TODO: add an edit page//
 
+//TODO: add a remove page//
 
 }
