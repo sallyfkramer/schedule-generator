@@ -19,6 +19,29 @@
             <input class="form-control" th:field="*{firstName}">
             <span th:errors="*{firstName}" class="error"></span>
         </div>
+        <div class="form-group">
+
+                <label>Schedule:</label>
+                <div></div>
+            <ul>
+                <li th:each="shift : ${shifts}">
+                    <label th:for="shifts"
+                           th:text="${shift.name}"></label>
+                    <input type="checkbox" th:field="*{shifts}" th:value="${shift.id}" />
+
+                </li>
+            </ul>
+                </input>
+
+                <!--<input id="features2" name="features" type="checkbox" value="FERTILIZER" />-->
+                <!--th:text="${shift.name}"-->
+
+
+            <!--<div>-->
+                <!--<label th:for="${#ids.next('covered')}" th:text="#{seedstarter.covered}">Covered</label>-->
+                <!--<input type="checkbox" th:field="*{covered}" />-->
+            <!--</div>-->
+        </div>
     <input type="submit" value="Add Employee"/>
     </form>
 

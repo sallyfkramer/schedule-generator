@@ -1,45 +1,32 @@
 package Schedule.Schedule.Generator.models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-public class Shift {
+public class Priority {
+
     @Id
     @GeneratedValue
     private int id;
 
     @NotNull
-    @Size(min=3, max = 25)
+    @Size(min=3, max=45)
     private String name;
 
     @NotNull
-    @Size(min=3, max=50)
+    @Size(min=3, max=100)
     private String description;
-
-    @ManyToMany(mappedBy = "shifts")
-    private List<Employee> employees;
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-
-    public Shift(String name, String description){
-        this.name= name;
-        this.description= description;
-    }
-
-    public Shift(){}
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -57,8 +44,4 @@ public class Shift {
     public void setDescription(String description) {
         this.description = description;
     }
-
-//
-//    @ManyToOne
-//    private List<Employee> employeeList;
 }

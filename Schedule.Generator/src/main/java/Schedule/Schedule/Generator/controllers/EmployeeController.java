@@ -1,8 +1,10 @@
 package Schedule.Schedule.Generator.controllers;
 
 import Schedule.Schedule.Generator.models.Employee;
+import Schedule.Schedule.Generator.models.Shift;
 import Schedule.Schedule.Generator.models.Training;
 import Schedule.Schedule.Generator.models.data.EmployeeDao;
+import Schedule.Schedule.Generator.models.data.ShiftDao;
 import Schedule.Schedule.Generator.models.data.TrainingDao;
 import Schedule.Schedule.Generator.models.forms.AddTrainingForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Controller
 @RequestMapping("employee")
@@ -24,7 +27,10 @@ public class EmployeeController {
     private EmployeeDao employeeDao;
 
     @Autowired
-    TrainingDao trainingDao;
+    private TrainingDao trainingDao;
+
+    @Autowired
+    private ShiftDao shiftDao;
 
     @RequestMapping(value = "")
     public String roster(Model model){
@@ -40,6 +46,7 @@ public class EmployeeController {
 
         model.addAttribute("title","Add Employee");
         model.addAttribute(new Employee());
+        model.addAttribute("shifts", shiftDao.findAll());
 
         return "employee/add";
     }
@@ -49,8 +56,10 @@ public class EmployeeController {
                                          Errors errors, Model model ) {
         if (errors.hasErrors()){
             model.addAttribute("title", "Add Employee");
+            model.addAttribute("shifts", shiftDao.findAll());
             return "employee/add";
         }
+
 
         employeeDao.save(newEmployee);
         return "redirect:";
@@ -63,6 +72,7 @@ public class EmployeeController {
                 " " + employee.getLastName() );
         model.addAttribute("trainings", employee.getTrainings());
         model.addAttribute("employeeId", employee.getId());
+        model.addAttribute("shifts", employee.getShifts());
         return "employee/view";
     }
 
@@ -83,6 +93,9 @@ public class EmployeeController {
 
     @RequestMapping(value = "add-training", method = RequestMethod.POST)
     public String addTraining(Model model, @ModelAttribute @Valid AddTrainingForm form, Errors errors){
+
+        System.out.println(form.getTrainingId());
+        System.out.println(form.getEmployeeId());
 
         if (errors.hasErrors()) {
             model.addAttribute("form", form);

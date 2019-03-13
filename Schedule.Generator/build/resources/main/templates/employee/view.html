@@ -6,11 +6,19 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<div></div>
 <ul>
     <li th:each="training : ${trainings}" th:text="${training.name} "></li>
 </ul>
 
 <p th:unless="${trainings.size()}"><i>No training yet.</i></p>
+
+<div></div>
+
+<ul>
+    <li th:each="shift : ${shifts}" th:text="${shift.name}"></li>
+</ul>
+<p th:unless="${shifts.size()}"><i>No schedule yet.</i></p>
 
 <p><a th:href="'/employee/add-training/' + ${employeeId}">Add Training</a></p>
 

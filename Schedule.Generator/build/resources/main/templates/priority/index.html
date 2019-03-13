@@ -5,21 +5,25 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
-<p th:unless="${trainings} and ${trainings.size()}">no trainings yet</p>
+
+<p th:unless="${priority} and ${priority.size()}">no priority levels yet</p>
+
 <table class="table">
 
     <tr>
-        <th>Training</th>
+        <th>Priority Level</th>
         <th>Description</th>
     </tr>
 
-    <tr th:each="training : ${trainings}">
-        <td th:text="${training.name}"></td>
-        <td th:text="${training.description}"}></td>
+
+    <tr th:each="priority : ${priorities}">
+        <td th:text="${priority.name}"></td>
+        <td th:text="${priority.description}"></td>
+
     </tr>
 
 </table>
 
-<a href="/training/add">Add Training</a> |
+<a href="/priority/add">Add Priority Level</a> |
 </body>
 </html>
