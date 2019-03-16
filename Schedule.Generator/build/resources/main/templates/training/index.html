@@ -5,6 +5,9 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: set-up-navigation"></nav>
+
+
 <p th:unless="${trainings} and ${trainings.size()}">no trainings yet</p>
 <table class="table">
 

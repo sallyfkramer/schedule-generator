@@ -21,18 +21,18 @@ public class Training {
     @Size(min=3, max=50)
     private String description;
 
-    public Training(String name, String description, Rarity rarity){
-        this.name= name;
-        this.description= description;
-        this.rarity= rarity;
-    }
-
     @OneToMany
     @JoinColumn(name= "training_id")
     private List<Post> posts = new ArrayList<>();
 
     @ManyToMany(mappedBy =  "trainings")
     private List<Employee> employees;
+
+    public Training(String name, String description, Rarity rarity){
+        this.name= name;
+        this.description= description;
+        this.rarity= rarity;
+    }
 
     private Rarity rarity;
 

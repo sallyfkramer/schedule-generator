@@ -5,6 +5,8 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: set-up-navigation"></nav>
+
 
 <p th:unless="${shifts} and ${shifts.size()}">no shifts yet</p>
 
@@ -17,7 +19,9 @@
 
 
     <tr th:each="shift : ${shifts}">
-        <td th:text="${shift.name}"></td>
+        <td >
+            <a th:href="'/shift/view/' + ${shift.id}" th:text="${shift.name}"></a>
+        </td>
         <td th:text="${shift.description}"></td>
 
     </tr>
@@ -27,3 +31,4 @@
 <a href="/shift/add">Add Shift</a> |
 </body>
 </html>
+

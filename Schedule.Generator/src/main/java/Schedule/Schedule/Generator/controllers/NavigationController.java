@@ -12,6 +12,6 @@ public class NavigationController {
     public String setUp(Model model){
         model.addAttribute("title","Set-Up");
 
-        return "set-up";
+        return "navigation/set-up";
     }
 }

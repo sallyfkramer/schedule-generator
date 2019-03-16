@@ -23,13 +23,10 @@ public class Shift {
     @ManyToMany(mappedBy = "shifts")
     private List<Employee> employees;
 
-    public List<Employee> getEmployees() {
-        return employees;
-    }
+    @OneToMany
+    @JoinColumn(name= "shift_id")
+    private List<Schedule> schedules = new ArrayList<>();
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
 
     public Shift(String name, String description){
         this.name= name;
@@ -58,7 +55,19 @@ public class Shift {
         this.description = description;
     }
 
-//
-//    @ManyToOne
-//    private List<Employee> employeeList;
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -47,6 +48,17 @@ public class ShiftController {
 
         shiftDao.save(newShift);
         return "redirect:";
+    }
+
+    @RequestMapping(value = "view/{shiftId}", method = RequestMethod.GET)
+    public String viewShift(Model model, @PathVariable int shiftId) {
+        Shift shift = shiftDao.findById(shiftId).orElse(null);
+        model.addAttribute("title", shift.getName());
+        model.addAttribute("employees", shift.getEmployees());
+        model.addAttribute("shiftId", shift.getId());
+        model.addAttribute("count", shift.getEmployees().size() );
+
+        return "shift/view";
     }
 }
 

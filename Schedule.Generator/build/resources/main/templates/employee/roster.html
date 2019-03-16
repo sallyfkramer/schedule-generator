@@ -7,6 +7,8 @@
 <h1 th:text="${title}">Default Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: set-up-navigation"></nav>
+
 
 <p th:unless="${employees} and ${employees.size()}">no employees yet</p>
 
