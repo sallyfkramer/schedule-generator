@@ -1,6 +1,9 @@
 package Schedule.Schedule.Generator.models;
 
 
+import Schedule.Schedule.Generator.models.data.EmployeeDao;
+import Schedule.Schedule.Generator.models.data.ShiftDao;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,9 +31,13 @@ public class Employee {
     @ManyToMany()
     private List<Shift> shifts;
 
+    @ManyToMany()
+    private List<Roster> rosters;
+
 
     public Employee() { }
 
+    EmployeeDao employeeDao;
 
     //getters and setters//
 
@@ -71,4 +78,8 @@ public class Employee {
     public void setShifts(List<Shift> shifts) {
         this.shifts = shifts;
     }
+
+
+
+
 }

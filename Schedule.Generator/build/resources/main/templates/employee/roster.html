@@ -12,23 +12,14 @@
 
 <p th:unless="${employees} and ${employees.size()}">no employees yet</p>
 
-<!--<ul>-->
-    <!--<li th:each="employee: ${employees}">-->
-        <!--<a th:href="'/employee/view/' + ${employee.id}" th:text="${employee.lastName} + ', ' + ${employee.firstName"></a>-->
-    <!--</li>-->
-<!--</ul>-->
-
-
 <table class="table">
     <tr>
         <th>Last Name</th>
         <th>First Name</th>
 
-
     </tr>
 
     <tr th:each="employee : ${employees}">
-        <!--<td th:text="${employee.lastName}"></td>-->
         <td> <a th:href="'/employee/view/' + ${employee.id}" th:text="${employee.lastName}"></a></td>
 
         <td th:text="${employee.firstName}"></td>
@@ -39,6 +30,7 @@
 </table>
 
 <a href="/employee/add">Add Employee</a> |
+<a href="/employee/remove">Remove Employee</a>
 
 
 </body>

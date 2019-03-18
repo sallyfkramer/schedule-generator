@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: set-up-navigation"></nav>
+
+
+<h4>Schedule:</h4>
+
+<form>
+    <ul>
+        <li th:each="shift : ${shifts}">
+            <input type="checkbox"
+                   th:field="*{shifts}"
+                   th:value="${shift}"
+                   th:checked
+            />
+            <label th:for="shifts"
+                   th:text="${shift.name}"></label>
+
+        </li>
+    </ul>
+
+</div>
+    <input type="hidden" name="employeeId" th:value="*{employee.id}"/>
+<input type="submit" value="Update Schedule"/>
+</form>
+
+
+
+
+</body>
+</html>
+
+<!--th:checked=checked th:if="${theseShifts.findById(shift.id).orElse(null)"-->

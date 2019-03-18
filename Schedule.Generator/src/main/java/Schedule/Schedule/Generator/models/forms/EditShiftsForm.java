@@ -1,0 +1,59 @@
+package Schedule.Schedule.Generator.models.forms;
+
+import Schedule.Schedule.Generator.models.Employee;
+import Schedule.Schedule.Generator.models.Shift;
+
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
+public class EditShiftsForm {
+
+    @NotNull
+    private int employeeId;
+
+    private List<Shift> theseShifts;
+
+    private Iterable<Shift> shifts;
+
+    private Employee employee;
+
+    public EditShiftsForm(){}
+
+    public EditShiftsForm(Iterable<Shift> shifts, Employee employee){
+        this.shifts = shifts;
+        this.employee = employee;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public List<Shift> getTheseShifts() {
+        return theseShifts;
+    }
+
+    public void setTheseShifts(List<Shift> theseShifts) {
+        this.theseShifts = theseShifts;
+    }
+
+    public Iterable<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(Iterable<Shift> shifts) {
+        this.shifts = shifts;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+}

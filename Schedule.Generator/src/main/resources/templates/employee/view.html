@@ -22,7 +22,11 @@
 </ul>
 <p th:unless="${shifts.size()}"><i>No schedule yet.</i></p>
 
-<p><a th:href="'/employee/add-training/' + ${employeeId}">Add Training</a></p>
+<p>
+    <a th:href="'/employee/add-training/' + ${employeeId}">Add Training</a> |
+    <a th:href="'/employee/edit-shifts/' + ${employeeId}">Edit Schedule</a>
+</p>
+
 
 </body>
 </html>

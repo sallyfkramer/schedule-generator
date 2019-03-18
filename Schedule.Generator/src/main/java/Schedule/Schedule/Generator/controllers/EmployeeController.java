@@ -7,17 +7,17 @@ import Schedule.Schedule.Generator.models.data.EmployeeDao;
 import Schedule.Schedule.Generator.models.data.ShiftDao;
 import Schedule.Schedule.Generator.models.data.TrainingDao;
 import Schedule.Schedule.Generator.models.forms.AddTrainingForm;
+import Schedule.Schedule.Generator.models.forms.EditShiftsForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("employee")
@@ -76,6 +76,8 @@ public class EmployeeController {
         return "employee/view";
     }
 
+//    TODO:Make it so you cannot add the same training twice.
+
     @RequestMapping(value = "add-training/{employeeId}", method = RequestMethod.GET)
     public String addTraining(Model model, @PathVariable int employeeId) {
 
@@ -91,11 +93,10 @@ public class EmployeeController {
         return "employee/add-training";
     }
 
+
+
     @RequestMapping(value = "add-training", method = RequestMethod.POST)
     public String addTraining(Model model, @ModelAttribute @Valid AddTrainingForm form, Errors errors){
-
-        System.out.println(form.getTrainingId());
-        System.out.println(form.getEmployeeId());
 
         if (errors.hasErrors()) {
             model.addAttribute("form", form);
@@ -111,7 +112,57 @@ public class EmployeeController {
     }
 
 //TODO: add edit schedule page//
+    @RequestMapping(value = "edit-shifts/{employeeId}", method = RequestMethod.GET)
+    public String editScheduleForm(Model model, @PathVariable int employeeId) {
+        Employee employee = employeeDao.findById(employeeId).orElse(null);
+        EditShiftsForm form = new EditShiftsForm(shiftDao.findAll(), employee);
 
+        model.addAttribute("title", "Edit schedule for " +
+                employee.getFirstName() + " " + employee.getLastName()  );
+        model.addAttribute("employee" , employee);
+        model.addAttribute("form", form);
+//        model.addAttribute("theseShifts", employee.getShifts());
+        model.addAttribute("shifts", shiftDao.findAll());
+        return "employee/edit-shifts";
+    }
 
-//TODO: add remove function//
+    @RequestMapping(value = "edit-shifts/{employeeId}", method = RequestMethod.POST)
+    public String processEditScheduleForm(Model model,@ModelAttribute @Valid EditShiftsForm form, Errors errors) {
+
+        if (errors.hasErrors()) {
+            model.addAttribute("form", form);
+            return "employee/edit-shifts";
+        }
+        Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
+        List<Shift> theseShifts = form.getTheseShifts();
+        for (Shift shift : theEmployee.getShifts()){
+            theEmployee.getShifts().remove(shift);
+        }
+        theEmployee.setShifts(theseShifts);
+        return "redirect:/employee/view/" + theEmployee.getId();    }
+
+    //    public void removeShift(Shift shift){employeeDao.findById().delete(shift);}
+//    group.getUsers().remove(user);
+//    Boolean exists = employeeDao.findById(employeeId).isPresent();
+//    Boolean x = Boolean.TRUE;
+//        model.addAttribute("x", x);
+
+    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    public String displayRemoveEmployeeForm(Model model) {
+
+        model.addAttribute("employees", employeeDao.findAll());
+        model.addAttribute("title", "Remove Employee");
+        return "employee/remove";
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public String processRemoveEmployeeForm(@RequestParam int[] employeeIds) {
+
+        for (int employeeId : employeeIds) {
+            Employee employee=employeeDao.findById(employeeId).orElse(null);
+            employeeDao.delete(employee);
+        }
+
+        return "redirect:";
+    }
 }

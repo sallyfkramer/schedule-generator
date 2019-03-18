@@ -1,9 +1,6 @@
 package Schedule.Schedule.Generator.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,6 +17,9 @@ public class Schedule {
 
     @ManyToOne
     private Shift shift;
+
+    @OneToOne
+    private Roster roster;
 
     public Schedule(){}
 
@@ -43,5 +43,11 @@ public class Schedule {
         this.shift = shift;
     }
 
+    public Roster getRoster() {
+        return roster;
+    }
 
+    public void setRoster(Roster roster) {
+        this.roster = roster;
+    }
 }
