@@ -10,20 +10,19 @@
 
 <h4>Schedule:</h4>
 
-<form>
+<form method="post" th:object="${form}" action="/employee/edit-shifts">
+    <div class="form-group">
     <ul>
-        <li th:each="shift : ${shifts}">
+        <li th:each="shift : ${shifts}" name="shifts">
             <input type="checkbox"
                    th:field="*{shifts}"
-                   th:value="${shift}"
-                   th:checked
+                   th:value="${shift.id}"
             />
             <label th:for="shifts"
                    th:text="${shift.name}"></label>
 
         </li>
     </ul>
-
 </div>
     <input type="hidden" name="employeeId" th:value="*{employee.id}"/>
 <input type="submit" value="Update Schedule"/>

@@ -1,13 +1,10 @@
 package Schedule.Schedule.Generator.models;
 
-
-import Schedule.Schedule.Generator.models.data.EmployeeDao;
-import Schedule.Schedule.Generator.models.data.ShiftDao;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Employee {
@@ -25,11 +22,11 @@ public class Employee {
     private String firstName;
 
     @ManyToMany
-    private List<Training> trainings;
+    private Set<Training> trainings;
 
 
     @ManyToMany()
-    private List<Shift> shifts;
+    private Set<Shift> shifts;
 
     @ManyToMany()
     private List<Roster> rosters;
@@ -37,7 +34,6 @@ public class Employee {
 
     public Employee() { }
 
-    EmployeeDao employeeDao;
 
     //getters and setters//
 
@@ -65,21 +61,29 @@ public class Employee {
 
     public void addItem(Training item) {trainings.add(item);}
 
-    public  List<Training> getTrainings() {return trainings; }
+    public void addShift(Shift shift) {shifts.add(shift);}
 
-    public void setTrainings(List<Training> trainings) {
+    public Set<Training> getTrainings() {
+        return trainings;
+    }
+
+    public void setTrainings(Set<Training> trainings) {
         this.trainings = trainings;
     }
 
-    public List<Shift> getShifts() {
+    public Set<Shift> getShifts() {
         return shifts;
     }
 
-    public void setShifts(List<Shift> shifts) {
+    public void setShifts(Set<Shift> shifts) {
         this.shifts = shifts;
     }
 
+    public List<Roster> getRosters() {
+        return rosters;
+    }
 
-
-
+    public void setRosters(List<Roster> rosters) {
+        this.rosters = rosters;
+    }
 }

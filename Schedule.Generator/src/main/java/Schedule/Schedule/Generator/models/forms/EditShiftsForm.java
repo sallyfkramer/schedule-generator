@@ -12,8 +12,8 @@ public class EditShiftsForm {
     @NotNull
     private int employeeId;
 
-    private List<Shift> theseShifts;
 
+//    @NotNull
     private Iterable<Shift> shifts;
 
     private Employee employee;
@@ -31,14 +31,6 @@ public class EditShiftsForm {
 
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
-    }
-
-    public List<Shift> getTheseShifts() {
-        return theseShifts;
-    }
-
-    public void setTheseShifts(List<Shift> theseShifts) {
-        this.theseShifts = theseShifts;
     }
 
     public Iterable<Shift> getShifts() {

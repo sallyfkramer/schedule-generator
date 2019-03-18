@@ -75,8 +75,8 @@ public class EmployeeController {
         model.addAttribute("shifts", employee.getShifts());
         return "employee/view";
     }
+    // TODO: make it so that the shifts appear in order.
 
-//    TODO:Make it so you cannot add the same training twice.
 
     @RequestMapping(value = "add-training/{employeeId}", method = RequestMethod.GET)
     public String addTraining(Model model, @PathVariable int employeeId) {
@@ -92,8 +92,6 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
         return "employee/add-training";
     }
-
-
 
     @RequestMapping(value = "add-training", method = RequestMethod.POST)
     public String addTraining(Model model, @ModelAttribute @Valid AddTrainingForm form, Errors errors){
@@ -121,7 +119,7 @@ public class EmployeeController {
                 employee.getFirstName() + " " + employee.getLastName()  );
         model.addAttribute("employee" , employee);
         model.addAttribute("form", form);
-//        model.addAttribute("theseShifts", employee.getShifts());
+        model.addAttribute("employeeShifts", employee.getShifts());
         model.addAttribute("shifts", shiftDao.findAll());
         return "employee/edit-shifts";
     }
@@ -134,12 +132,17 @@ public class EmployeeController {
             return "employee/edit-shifts";
         }
         Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
-        List<Shift> theseShifts = form.getTheseShifts();
+        Iterable<Shift> theseShifts = form.getShifts();
         for (Shift shift : theEmployee.getShifts()){
             theEmployee.getShifts().remove(shift);
         }
-        theEmployee.setShifts(theseShifts);
-        return "redirect:/employee/view/" + theEmployee.getId();    }
+        for (Shift shift : theseShifts){
+        theEmployee.addShift(shift);
+        employeeDao.save(theEmployee);}
+        return "redirect/employee/roster";
+//        return "redirect:/employee/view/" + theEmployee.getId();
+        }
+
 
     //    public void removeShift(Shift shift){employeeDao.findById().delete(shift);}
 //    group.getUsers().remove(user);
