@@ -10,8 +10,8 @@ import java.util.Set;
 
 public class EditShiftsForm {
 
-    @NotNull
-    private int employeeId;
+//    @NotNull
+//    private int employeeId;
 
 
     @NotNull
@@ -28,14 +28,14 @@ public class EditShiftsForm {
 //        this.shifts = shifts;
 //        this.employee = employee;
 //    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
+//
+//    public int getEmployeeId() {
+//        return employeeId;
+//    }
+//
+//    public void setEmployeeId(int employeeId) {
+//        this.employeeId = employeeId;
+//    }
 
 //    public Iterable<Shift> getShifts() {
 //        return shifts;
