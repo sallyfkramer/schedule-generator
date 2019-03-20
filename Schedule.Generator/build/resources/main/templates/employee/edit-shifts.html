@@ -11,14 +11,16 @@
 <h4>Schedule:</h4>
 
 <form method="post" th:object="${form}" action="/employee/edit-shifts">
+
     <div class="form-group">
     <ul>
-        <li th:each="shift : ${shifts}" name="shifts">
+        <li th:each="shift : ${shifts}" >
             <input type="checkbox"
                    th:field="*{shifts}"
                    th:value="${shift.id}"
-            />
-            <label th:for="shifts"
+                   th:checked
+                   name="theseShifts"/>
+            <label th:for="shift"
                    th:text="${shift.name}"></label>
 
         </li>
@@ -28,7 +30,7 @@
 <input type="submit" value="Update Schedule"/>
 </form>
 
-
+<!--th:if="${shift.contains(employeeShifts, shift)}"-->
 
 
 </body>

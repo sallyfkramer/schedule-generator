@@ -89,7 +89,7 @@ public class EmployeeController {
         model.addAttribute("title", "Add training to " + employee.getFirstName() +
                 " " + employee.getLastName()  );
         model.addAttribute("form", form);
-        model.addAttribute("employee", employee);
+//        model.addAttribute("employee", employee);
         return "employee/add-training";
     }
 
@@ -110,38 +110,39 @@ public class EmployeeController {
     }
 
 //TODO: add edit schedule page//
-    @RequestMapping(value = "edit-shifts/{employeeId}", method = RequestMethod.GET)
-    public String editScheduleForm(Model model, @PathVariable int employeeId) {
-        Employee employee = employeeDao.findById(employeeId).orElse(null);
-        EditShiftsForm form = new EditShiftsForm(shiftDao.findAll(), employee);
 
-        model.addAttribute("title", "Edit schedule for " +
-                employee.getFirstName() + " " + employee.getLastName()  );
-        model.addAttribute("employee" , employee);
-        model.addAttribute("form", form);
-        model.addAttribute("employeeShifts", employee.getShifts());
-        model.addAttribute("shifts", shiftDao.findAll());
-        return "employee/edit-shifts";
-    }
-
-    @RequestMapping(value = "edit-shifts/{employeeId}", method = RequestMethod.POST)
-    public String processEditScheduleForm(Model model,@ModelAttribute @Valid EditShiftsForm form, Errors errors) {
-
-        if (errors.hasErrors()) {
-            model.addAttribute("form", form);
-            return "employee/edit-shifts";
-        }
-        Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
-        Iterable<Shift> theseShifts = form.getShifts();
-        for (Shift shift : theEmployee.getShifts()){
-            theEmployee.getShifts().remove(shift);
-        }
-        for (Shift shift : theseShifts){
-        theEmployee.addShift(shift);
-        employeeDao.save(theEmployee);}
-        return "redirect/employee/roster";
-//        return "redirect:/employee/view/" + theEmployee.getId();
-        }
+//    @RequestMapping(value = "edit-shifts/{employeeId}", method = RequestMethod.GET)
+//    public String editScheduleForm(Model model, @PathVariable int employeeId) {
+//        Employee employee = employeeDao.findById(employeeId).orElse(null);
+//        EditShiftsForm form = new EditShiftsForm(shiftDao.findAll(), employee);
+//
+//        model.addAttribute("title", "Edit schedule for " +
+//                employee.getFirstName() + " " + employee.getLastName()  );
+////        model.addAttribute("employee" , employee);
+//        model.addAttribute("form", form);
+//        model.addAttribute("employeeShifts", employee.getShifts());
+////        model.addAttribute("shifts", shiftDao.findAll());
+//        return "employee/edit-shifts";
+//    }
+//
+//    @RequestMapping(value = "edit-shifts/{employeeId}", method = RequestMethod.POST)
+//    public String processEditScheduleForm(Model model,@ModelAttribute @Valid EditShiftsForm form, Errors errors) {
+//
+//        if (errors.hasErrors()) {
+//            model.addAttribute("form", form);
+//            return "employee/edit-shifts";
+//        }
+//        Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
+//        Iterable<Shift> theseShifts = form.getShifts();
+//        for (Shift shift : theEmployee.getShifts()){
+//            theEmployee.getShifts().remove(shift);
+//        }
+//        for (Shift shift : theseShifts){
+//        theEmployee.addShift(shift);
+//        employeeDao.save(theEmployee);}
+//        return "redirect/employee/roster";
+////        return "redirect:/employee/view/" + theEmployee.getId();
+//        }
 
 
     //    public void removeShift(Shift shift){employeeDao.findById().delete(shift);}
