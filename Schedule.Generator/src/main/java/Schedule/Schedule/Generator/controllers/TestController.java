@@ -41,13 +41,14 @@ public class TestController {
                            Errors errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Edit");
+            model.addAttribute("employee",employeeDao.findById(26).orElse(null));
             model.addAttribute("allShifts", shiftDao.findAll());
             return "test/test";
         }
 
         Employee theEmployee = employeeDao.findById(26).orElse(null);
-        for (Shift shift : newForm.getTheseShifts()){
-            theEmployee.addShift(shift);
+        for (int shift : newForm.getTheseShifts()){
+            theEmployee.addShift(shiftDao.findById(shift).orElse(null));
             employeeDao.save(theEmployee); }
 
         return "redirect:/employee/view/26";

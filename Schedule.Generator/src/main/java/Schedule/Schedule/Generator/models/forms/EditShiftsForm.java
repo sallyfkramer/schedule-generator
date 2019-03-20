@@ -15,7 +15,7 @@ public class EditShiftsForm {
 
 
     @NotNull
-    private Set<Shift> theseShifts;
+    private Set<Integer> theseShifts;
 
 
 //    private Iterable<Shift> shifts;
@@ -53,11 +53,12 @@ public class EditShiftsForm {
 //        this.employee = employee;
 //    }
 
-    public Set<Shift> getTheseShifts() {
+
+    public Set<Integer> getTheseShifts() {
         return theseShifts;
     }
 
-    public void setTheseShifts(Set<Shift> theseShifts) {
+    public void setTheseShifts(Set<Integer> theseShifts) {
         this.theseShifts = theseShifts;
     }
 }

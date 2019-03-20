@@ -22,7 +22,7 @@
         <ul>
             <li th:each="shift : ${allShifts}">
                 <input type="checkbox" th:field="*{shifts}" th:value="${shift.id}" />
-                <label th:for="shifts"
+                <label th:for="theseShifts"
                        th:text="${shift.name}"></label>
             </li>
         </ul>
