@@ -10,49 +10,32 @@ import java.util.Set;
 
 public class EditShiftsForm {
 
-//    @NotNull
-//    private int employeeId;
+    @NotNull
+    private int employeeId;
 
 
     @NotNull
     private Set<Integer> theseShifts;
 
 
-//    private Iterable<Shift> shifts;
+    private Iterable<Shift> shifts;
 
-//    private Employee employee;
+    private Employee employee;
 
     public EditShiftsForm(){}
 
-//    public EditShiftsForm(Iterable<Shift> shifts, Employee employee){
-//        this.shifts = shifts;
-//        this.employee = employee;
-//    }
-//
-//    public int getEmployeeId() {
-//        return employeeId;
-//    }
-//
-//    public void setEmployeeId(int employeeId) {
-//        this.employeeId = employeeId;
-//    }
+    public EditShiftsForm(Iterable<Shift> shifts, Employee employee){
+        this.shifts = shifts;
+        this.employee = employee;
+    }
 
-//    public Iterable<Shift> getShifts() {
-//        return shifts;
-//    }
-//
-//    public void setShifts(Iterable<Shift> shifts) {
-//        this.shifts = shifts;
-//    }
-//
-//    public Employee getEmployee() {
-//        return employee;
-//    }
-//
-//    public void setEmployee(Employee employee) {
-//        this.employee = employee;
-//    }
+    public int getEmployeeId() {
+        return employeeId;
+    }
 
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
 
     public Set<Integer> getTheseShifts() {
         return theseShifts;
@@ -60,5 +43,21 @@ public class EditShiftsForm {
 
     public void setTheseShifts(Set<Integer> theseShifts) {
         this.theseShifts = theseShifts;
+    }
+
+    public Iterable<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(Iterable<Shift> shifts) {
+        this.shifts = shifts;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

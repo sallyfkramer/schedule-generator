@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Controller
@@ -111,38 +112,37 @@ public class EmployeeController {
 
 //TODO: add edit schedule page//
 
-//    @RequestMapping(value = "edit-shifts/{employeeId}", method = RequestMethod.GET)
-//    public String editScheduleForm(Model model, @PathVariable int employeeId) {
-//        Employee employee = employeeDao.findById(employeeId).orElse(null);
-//        EditShiftsForm form = new EditShiftsForm(shiftDao.findAll(), employee);
-//
-//        model.addAttribute("title", "Edit schedule for " +
-//                employee.getFirstName() + " " + employee.getLastName()  );
-////        model.addAttribute("employee" , employee);
-//        model.addAttribute("form", form);
-//        model.addAttribute("employeeShifts", employee.getShifts());
-////        model.addAttribute("shifts", shiftDao.findAll());
-//        return "employee/edit-shifts";
-//    }
-//
-//    @RequestMapping(value = "edit-shifts/{employeeId}", method = RequestMethod.POST)
-//    public String processEditScheduleForm(Model model,@ModelAttribute @Valid EditShiftsForm form, Errors errors) {
-//
-//        if (errors.hasErrors()) {
-//            model.addAttribute("form", form);
-//            return "employee/edit-shifts";
-//        }
-//        Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
-//        Iterable<Shift> theseShifts = form.getShifts();
-//        for (Shift shift : theEmployee.getShifts()){
-//            theEmployee.getShifts().remove(shift);
-//        }
-//        for (Shift shift : theseShifts){
-//        theEmployee.addShift(shift);
-//        employeeDao.save(theEmployee);}
-//        return "redirect/employee/roster";
-////        return "redirect:/employee/view/" + theEmployee.getId();
-//        }
+    @RequestMapping(value = "edit-shifts/{employeeId}", method = RequestMethod.GET)
+    public String editSchedule(Model model, @PathVariable int employeeId) {
+        Employee employee = employeeDao.findById(employeeId).orElse(null);
+        Iterable<Shift> allShifts = shiftDao.findAll();
+        EditShiftsForm form = new EditShiftsForm(allShifts,employee);
+
+        model.addAttribute("title", "Edit schedule for " + employee.getFirstName() +
+                " " + employee.getLastName()  );
+        model.addAttribute("form", form);
+
+        return "employee/edit-shifts";
+    }
+
+    @RequestMapping(value = "edit-shifts", method = RequestMethod.POST)
+    public String processEditScheduleForm(Model model,@ModelAttribute @Valid EditShiftsForm form, Errors errors) {
+
+        if (errors.hasErrors()) {
+            model.addAttribute("form", form);
+            return "employee/edit-shifts";
+        }
+        Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
+        Set<Integer> theseShifts = form.getTheseShifts();
+        for (Shift shift : theEmployee.getShifts()){
+            theEmployee.getShifts().remove(shift);
+        }
+        for (int id : theseShifts){
+        theEmployee.addShift(shiftDao.findById(id).orElse(null));
+        employeeDao.save(theEmployee);}
+        return "redirect:/employee/roster";
+//        return "redirect:/employee/view/" + theEmployee.getId();
+        }
 
 
     //    public void removeShift(Shift shift){employeeDao.findById().delete(shift);}

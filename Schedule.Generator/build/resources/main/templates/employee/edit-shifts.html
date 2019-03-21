@@ -4,36 +4,41 @@
 <body class="container">
 <h1 th:text="${title}">Default Title</h1>
 
-<nav th:replace="fragments :: navigation"></nav>
-<nav th:replace="fragments :: set-up-navigation"></nav>
-
-
 <h4>Schedule:</h4>
 
-<form method="post" th:object="${form}" action="/employee/edit-shifts">
+<form method="post"  th:object="${employee}" action="/employee/edit-shifts">
 
     <div class="form-group">
-    <ul>
-        <li th:each="shift : ${shifts}" >
-            <input type="checkbox"
-                   th:field="*{shifts}"
-                   th:value="${shift.id}"
-                   th:checked
-                   name="theseShifts"/>
-            <label th:for="shift"
-                   th:text="${shift.name}"></label>
+        <label th:for="lastName">Last Name</label>
+        <input class="form-control" th:field="*{lastName}" />
+        <span th:errors="*{lastName}" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label th:for="firstName">First Name</label>
+        <input class="form-control" th:field="*{firstName}">
+        <span th:errors="*{firstName}" class="error"></span>
+    </div>
+    <div class="form-group">
 
+<div class="form-group">
+    <label>Schedule:</label>
+    <ul>
+        <li th:each="shift : ${form.shifts}">
+            <input type="checkbox"
+                   th:field="${form.theseShifts}"
+                   th:value="${shift.id}" />
+            <label th:for="theseShifts"
+                   th:text="${shift.name}"></label>
         </li>
     </ul>
 </div>
-    <input type="hidden" name="employeeId" th:value="*{employee.id}"/>
+    <input type="hidden"
+           name="employeeId"
+           th:attr="value=${employeeId}"
+           th:field="${form.employeeId}"/>
 <input type="submit" value="Update Schedule"/>
 </form>
-
-<!--th:if="${shift.contains(employeeShifts, shift)}"-->
-
 
 </body>
 </html>
 
-<!--th:checked=checked th:if="${theseShifts.findById(shift.id).orElse(null)"-->

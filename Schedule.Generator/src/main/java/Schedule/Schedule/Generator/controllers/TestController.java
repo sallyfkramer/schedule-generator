@@ -27,11 +27,13 @@ public class TestController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String test(Model model) {
+        Employee employee= employeeDao.findById(26).orElse(null);
+        Iterable<Shift> allShifts = shiftDao.findAll();
 
-        model.addAttribute("employee", employeeDao.findById(26).orElse(null));
+        model.addAttribute("employee", employee);
         model.addAttribute("title", "Edit Schedule");
-        model.addAttribute("allShifts", shiftDao.findAll());
-        model.addAttribute( new EditShiftsForm());
+        model.addAttribute("allShifts", allShifts);
+        model.addAttribute( new EditShiftsForm(allShifts,employee));
 
         return "test/test";
     }

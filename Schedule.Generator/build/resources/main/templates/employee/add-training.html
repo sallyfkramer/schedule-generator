@@ -7,7 +7,7 @@
 <form method="post" th:object="${form}" action="/employee/add-training">
 
     <div class="form-group">
-        <label th:for="training">Training</label>
+        <label th:for="training">Training:</label>
         <select name="trainingId">
             <option th:each="training : *{trainings}"
                     th:text="${training.name}"
