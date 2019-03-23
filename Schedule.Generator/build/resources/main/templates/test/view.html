@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+
+
+<h4 th:text="${form.employeeId}"></h4>
+
+<h4>Trainings:</h4>
+<ul>
+    <li th:each="training : ${form.employee.trainings}" th:text="${training.name} "></li>
+</ul>
+
+<!--<p th:unless="${form.employee.trainings.size()}"><i>No training yet.</i></p>-->
+
+
+<h4>Schedule:</h4>
+<ul>
+    <li th:each="shift : ${form.employee.shifts}" th:text="${shift.name}"></li>
+</ul>
+<!--<p th:unless="${form.employee.shifts.size()}"><i>No schedule yet.</i></p>-->
+
+
 
 </body>
 </html>

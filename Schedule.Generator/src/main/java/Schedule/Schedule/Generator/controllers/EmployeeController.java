@@ -128,20 +128,22 @@ public class EmployeeController {
     @RequestMapping(value = "edit-shifts", method = RequestMethod.POST)
     public String processEditScheduleForm(Model model,@ModelAttribute @Valid EditShiftsForm form, Errors errors) {
 
-        if (errors.hasErrors()) {
-            model.addAttribute("form", form);
-            return "employee/edit-shifts";
-        }
-        Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
-        Set<Integer> theseShifts = form.getTheseShifts();
-        for (Shift shift : theEmployee.getShifts()){
-            theEmployee.getShifts().remove(shift);
-        }
-        for (int id : theseShifts){
-        theEmployee.addShift(shiftDao.findById(id).orElse(null));
-        employeeDao.save(theEmployee);}
-        return "redirect:/employee/roster";
+//        if (errors.hasErrors()) {
+//            model.addAttribute("form", form);
+//            return "employee/edit-shifts";
+//        }
+//        Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
+//        Set<Integer> theseShifts = form.getTheseShifts();
+//        for (Shift shift : shiftDao.findAll()){
+//            theEmployee.getShifts().remove(shift);
+//        }
+//        for (int id : theseShifts){
+//        theEmployee.addShift(shiftDao.findById(id).orElse(null));
+//        employeeDao.save(theEmployee);}
+////        return "redirect:/employee/roster";
 //        return "redirect:/employee/view/" + theEmployee.getId();
+        model.addAttribute("form", form);
+        return "/test/view";
         }
 
 

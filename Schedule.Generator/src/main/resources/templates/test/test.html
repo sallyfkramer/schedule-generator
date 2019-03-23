@@ -5,19 +5,21 @@
 <body class="container">
 <h1 th:text="${title}">Default Title</h1>
 
-<form method="post" style="max-width:600px;" th:object="${employee}">
+<form method="post" style="max-width:600px;" th:object="${form}">
 
         <label>Schedule:</label>
-        <ul>
-            <li th:each="shift : ${allShifts}">
-                <input type="checkbox" th:field="*{shifts}" th:value="${shift.id}" />
-                <label th:for="theseShifts"
-                       th:text="${shift.name}"></label>
-            </li>
-        </ul>
+    <ul>
+        <li th:each="shift : ${form.shifts}">
+            <input type="checkbox"
+                   th:field="${form.employee.shifts}"
+                   th:value="${shift.id}" />
+            <label th:for="theseShifts"
+                   th:text="${shift.name}"></label>
+        </li>
+    </ul>
     </div>
 
-        <input type="hidden" name="employeeId" th:value="*{id}" th:field="*{shifts}"/>
+        <!--<input type="hidden" name="employeeId" th:value="*{employee.id}" th:field="*{theseShifts}"/>-->
         <input type="submit"value="Update Schedule"/>
 </form>
 

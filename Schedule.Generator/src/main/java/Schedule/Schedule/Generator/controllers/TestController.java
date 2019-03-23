@@ -32,7 +32,7 @@ public class TestController {
 
         model.addAttribute("employee", employee);
         model.addAttribute("title", "Edit Schedule");
-        model.addAttribute("allShifts", allShifts);
+//        model.addAttribute("allShifts", allShifts);
         model.addAttribute( new EditShiftsForm(allShifts,employee));
 
         return "test/test";
@@ -55,5 +55,6 @@ public class TestController {
 
         return "redirect:/employee/view/26";
     }
+
 
 }
