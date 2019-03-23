@@ -3,7 +3,6 @@ package Schedule.Schedule.Generator.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,12 +23,14 @@ public class Employee {
     @ManyToMany
     private Set<Training> trainings;
 
-
     @ManyToMany()
     private Set<Shift> shifts;
 
-    @ManyToMany()
-    private List<Roster> rosters;
+    @ManyToMany
+    private Set<Schedule> schedules;
+
+//    @ManyToMany()
+//    private List<Roster> rosters;
 
 
     public Employee() { }
@@ -79,11 +80,19 @@ public class Employee {
         this.shifts = shifts;
     }
 
-    public List<Roster> getRosters() {
-        return rosters;
+    public Set<Schedule> getSchedules() {
+        return schedules;
     }
 
-    public void setRosters(List<Roster> rosters) {
-        this.rosters = rosters;
+    public void setSchedules(Set<Schedule> schedules) {
+        this.schedules = schedules;
     }
+
+    //    public List<Roster> getRosters() {
+//        return rosters;
+//    }
+//
+//    public void setRosters(List<Roster> rosters) {
+//        this.rosters = rosters;
+//    }
 }

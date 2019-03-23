@@ -110,8 +110,6 @@ public class EmployeeController {
         return "redirect:/employee/view/" + theEmployee.getId();
     }
 
-//TODO: add edit schedule page//
-
     @RequestMapping(value = "edit-shifts/{employeeId}", method = RequestMethod.GET)
     public String editSchedule(Model model, @PathVariable int employeeId) {
         Employee employee = employeeDao.findById(employeeId).orElse(null);
@@ -128,30 +126,25 @@ public class EmployeeController {
     @RequestMapping(value = "edit-shifts", method = RequestMethod.POST)
     public String processEditScheduleForm(Model model,@ModelAttribute @Valid EditShiftsForm form, Errors errors) {
 
-//        if (errors.hasErrors()) {
-//            model.addAttribute("form", form);
-//            return "employee/edit-shifts";
-//        }
-//        Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
-//        Set<Integer> theseShifts = form.getTheseShifts();
-//        for (Shift shift : shiftDao.findAll()){
-//            theEmployee.getShifts().remove(shift);
-//        }
-//        for (int id : theseShifts){
-//        theEmployee.addShift(shiftDao.findById(id).orElse(null));
-//        employeeDao.save(theEmployee);}
-////        return "redirect:/employee/roster";
-//        return "redirect:/employee/view/" + theEmployee.getId();
-        model.addAttribute("form", form);
-        return "/test/view";
+        if (errors.hasErrors()) {
+            model.addAttribute("form", form);
+            return "employee/edit-shifts";
+        }
+        Employee theEmployee = employeeDao.findById(form.getEmployeeId()).orElse(null);
+        Set<Shift> theseShifts = form.getEmployee().getShifts();
+
+        for (Shift shift : shiftDao.findAll()){
+            theEmployee.getShifts().remove(shift);
+        }
+        for (Shift shift: theseShifts){
+        theEmployee.addShift(shift);
+
+        employeeDao.save(theEmployee);}
+        return "redirect:/employee/view/" + theEmployee.getId();
+
         }
 
 
-    //    public void removeShift(Shift shift){employeeDao.findById().delete(shift);}
-//    group.getUsers().remove(user);
-//    Boolean exists = employeeDao.findById(employeeId).isPresent();
-//    Boolean x = Boolean.TRUE;
-//        model.addAttribute("x", x);
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveEmployeeForm(Model model) {
