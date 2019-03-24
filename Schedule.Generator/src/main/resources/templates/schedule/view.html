@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: set-up-navigation"></nav>
+
+
+<h5 th:text="'Number of Employees scheduled: ' + ${count}"></h5>
+<h5 th:text="'Schedule for ' + ${shift.name}"></h5>
+<ul>
+    <li th:each="employee : ${employees}" th:text="${employee.lastName} + ', ' +${employee.firstName}"></li>
+</ul>
+
+<p th:unless="${employees.size()}"><i>No employees yet</i></p>
+
+<a th:href="'/schedule/add-roster/' + ${scheduleId}">Add/Edit Roster</a>
+
 
 </body>
 </html>

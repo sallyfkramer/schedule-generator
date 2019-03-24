@@ -63,6 +63,20 @@ public class ScheduleController {
     }
 
 //    TODO: add schedule view
+    @RequestMapping(value = "view/{scheduleId}", method = RequestMethod.GET)
+    public String viewSchedule(Model model, @PathVariable int scheduleId) {
+        Schedule schedule = scheduleDao.findById(scheduleId).orElse(null);
+
+        model.addAttribute("title", schedule.getName());
+        model.addAttribute("employees", schedule.getRoster());
+        model.addAttribute("scheduleId", schedule.getId());
+        model.addAttribute("count", schedule.getRoster().size());
+        model.addAttribute("shift", schedule.getShift());
+
+
+        return "schedule/view";
+    }
+
 
 //    TODO: add post for add-roster
 
@@ -74,7 +88,7 @@ public class ScheduleController {
         schedule.setRoster(schedule.getShift().getEmployees());
 
         model.addAttribute("title", "Edit roster");
-        model.addAttribute(new AddRosterForm(schedule, allEmployees));
+        model.addAttribute("form", new AddRosterForm(schedule, allEmployees));
         return "schedule/add-roster";
     }
 }

@@ -10,7 +10,7 @@
 
 <h5 th:text="'Number of Employees scheduled: ' + ${count}"></h5>
 <ul>
-    <li th:each="employee : ${employees}" th:text="${employee.lastName}"></li>
+    <li th:each="employee : ${employees}" th:text="${employee.lastName} + ', ' +${employee.firstName}"></li>
 </ul>
 
 <p th:unless="${employees.size()}"><i>No employees yet</i></p>

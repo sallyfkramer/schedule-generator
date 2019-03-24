@@ -16,7 +16,7 @@
 
     <tr th:each="schedule : ${schedules}">
         <td >
-            <a th:href="'/schedules/view/' + ${schedule.id}" th:text="${schedule.name}"></a>
+            <a th:href="'/schedule/view/' + ${schedule.id}" th:text="${schedule.name}"></a>
         </td>
     </tr>
 </table>
