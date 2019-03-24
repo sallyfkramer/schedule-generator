@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Shift {
@@ -21,7 +22,7 @@ public class Shift {
     private String description;
 
     @ManyToMany(mappedBy = "shifts")
-    private List<Employee> employees;
+    private Set<Employee> employees;
 
     @OneToMany
     @JoinColumn(name= "shift_id")
@@ -55,11 +56,11 @@ public class Shift {
         this.description = description;
     }
 
-    public List<Employee> getEmployees() {
+    public Set<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<Employee> employees) {
+    public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
     }
 

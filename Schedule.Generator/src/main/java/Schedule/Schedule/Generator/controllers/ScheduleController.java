@@ -1,19 +1,20 @@
 package Schedule.Schedule.Generator.controllers;
 
+import Schedule.Schedule.Generator.models.Employee;
 import Schedule.Schedule.Generator.models.Schedule;
 import Schedule.Schedule.Generator.models.Shift;
+import Schedule.Schedule.Generator.models.data.EmployeeDao;
 import Schedule.Schedule.Generator.models.data.ScheduleDao;
 import Schedule.Schedule.Generator.models.data.ShiftDao;
+import Schedule.Schedule.Generator.models.forms.AddRosterForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @Controller
 @RequestMapping("schedule")
@@ -24,6 +25,9 @@ public class ScheduleController {
 
     @Autowired
     private ShiftDao shiftDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @RequestMapping(value = "")
     public String index(Model model){
@@ -58,8 +62,19 @@ public class ScheduleController {
         return "redirect:";
     }
 
-//    @RequestMapping(value = "add-roster", method = RequestMethod.GET)
-//    public String addRosterForm(Model model){
-//        mo
-//    }
+//    TODO: add schedule view
+
+//    TODO: add post for add-roster
+
+    @RequestMapping(value = "add-roster/{scheduleId}", method = RequestMethod.GET)
+    public String addRosterForm(Model model, @PathVariable int scheduleId){
+
+        Schedule schedule = scheduleDao.findById(scheduleId).orElse(null);
+        Iterable<Employee> allEmployees = employeeDao.findAll();
+        schedule.setRoster(schedule.getShift().getEmployees());
+
+        model.addAttribute("title", "Edit roster");
+        model.addAttribute(new AddRosterForm(schedule, allEmployees));
+        return "schedule/add-roster";
+    }
 }
