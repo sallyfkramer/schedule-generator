@@ -29,10 +29,6 @@ public class Employee {
     @ManyToMany
     private Set<Schedule> schedules;
 
-//    @ManyToMany()
-//    private List<Roster> rosters;
-
-
     public Employee() { }
 
 
@@ -88,11 +84,5 @@ public class Employee {
         this.schedules = schedules;
     }
 
-    //    public List<Roster> getRosters() {
-//        return rosters;
-//    }
-//
-//    public void setRosters(List<Roster> rosters) {
-//        this.rosters = rosters;
-//    }
+
 }

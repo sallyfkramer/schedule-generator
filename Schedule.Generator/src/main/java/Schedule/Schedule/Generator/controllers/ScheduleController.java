@@ -29,6 +29,8 @@ public class ScheduleController {
     @Autowired
     private EmployeeDao employeeDao;
 
+//    Index displays a list of schedules by name.
+
     @RequestMapping(value = "")
     public String index(Model model){
         model.addAttribute("schedules", scheduleDao.findAll());
@@ -37,6 +39,7 @@ public class ScheduleController {
         return "schedule/index";
     }
 
+//    Add new schedule and redirect to view for new schedule
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String addScheduleForm(Model model){
 
@@ -59,10 +62,10 @@ public class ScheduleController {
         Shift shift = shiftDao.findById(shiftId).orElse(null);
         newSchedule.setShift(shift);
         scheduleDao.save(newSchedule);
-        return "redirect:";
+        return "redirect:/schedule/view/" + newSchedule.getId();
     }
 
-//    TODO: add schedule view
+//    view for individual  schedule
     @RequestMapping(value = "view/{scheduleId}", method = RequestMethod.GET)
     public String viewSchedule(Model model, @PathVariable int scheduleId) {
         Schedule schedule = scheduleDao.findById(scheduleId).orElse(null);
@@ -78,17 +81,41 @@ public class ScheduleController {
     }
 
 
-//    TODO: add post for add-roster
+//    function to add or edit an existing roster to the schedule
 
     @RequestMapping(value = "add-roster/{scheduleId}", method = RequestMethod.GET)
     public String addRosterForm(Model model, @PathVariable int scheduleId){
 
         Schedule schedule = scheduleDao.findById(scheduleId).orElse(null);
         Iterable<Employee> allEmployees = employeeDao.findAll();
-        schedule.setRoster(schedule.getShift().getEmployees());
+        if (schedule.getRoster().isEmpty())
+            schedule.setRoster(schedule.getShift().getEmployees());
 
         model.addAttribute("title", "Edit roster");
         model.addAttribute("form", new AddRosterForm(schedule, allEmployees));
         return "schedule/add-roster";
     }
-}
+
+    @RequestMapping(value = "add-roster", method = RequestMethod.POST)
+    public String processAddRosterForm(Model model, @ModelAttribute @Valid AddRosterForm form, Errors errors){
+
+        if (errors.hasErrors()){
+            model.addAttribute("title", "edit roster");
+            model.addAttribute("form", form);
+            return "employee/edit-shifts";
+        }
+
+        Schedule theSchedule = scheduleDao.findById(form.getScheduleId()).orElse(null);
+        Set<Employee> thisRoster = form.getSchedule().getRoster();
+
+        theSchedule.setRoster(thisRoster);
+        scheduleDao.save(theSchedule);
+
+        return "redirect:/schedule/view/" + form.getScheduleId();
+
+    }
+
+//    TODO: create post list edit page that redirects if the number of posts
+//     doesn't equal the number of employees. Should list posts by priority level
+//      with checks starting at the top pre-checked for the number of employees.
+

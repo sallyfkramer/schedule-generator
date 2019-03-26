@@ -5,8 +5,6 @@ import Schedule.Schedule.Generator.models.Shift;
 
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Set;
 
 public class EditShiftsForm {
 

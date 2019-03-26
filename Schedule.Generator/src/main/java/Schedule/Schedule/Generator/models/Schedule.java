@@ -22,8 +22,6 @@ public class Schedule {
     @ManyToMany
     private Set<Employee> employees;
 
-//    @OneToOne
-//    private Roster roster;
 
     public Schedule(){}
 
@@ -55,11 +53,7 @@ public class Schedule {
         this.employees = roster;
     }
 
-    //    public Roster getRoster() {
-//        return roster;
-//    }
-//
-//    public void setRoster(Roster roster) {
-//        this.roster = roster;
-//    }
+    public void addEmployee(Employee employee) {employees.add(employee);}
+
+
 }
