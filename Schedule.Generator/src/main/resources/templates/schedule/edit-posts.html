@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+<h4>Roster:</h4>
+
+<form method="post" th:object="${form}" action="/schedule/edit-posts">
+
+    <div class="form-group">
+        <ul>
+            <li th:each="post : ${form.allPosts}">
+                <input type="checkbox"
+                       th:field="${form.schedule.posts}"
+                       th:value="${employee.id}"/>
+                <label th:for="roster"
+                       th:text="${employee.firstName} + ' ' + ${employee.lastName}"></label>
+            </li>
+        </ul>
+    </div>
+    <input type="hidden" name="scheduleId" th:value="*{schedule.id}"/>
+    <input type="submit" value="Update Roster"/>
+</form>
+
+</body>
+</html>

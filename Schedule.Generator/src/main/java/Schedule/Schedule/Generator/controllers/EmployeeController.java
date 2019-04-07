@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -35,8 +36,14 @@ public class EmployeeController {
 
     @RequestMapping(value = "")
     public String roster(Model model){
+        Iterable<Employee>allEmployees = employeeDao.findAll();
+        List<Employee> list = new ArrayList<Employee>();
+        for (Employee employee:allEmployees) {
+            list.add(employee);
+        }
+        Collections.sort(list, new Employee.EmployeeSortingComparator());
 
-        model.addAttribute("employees", employeeDao.findAll());
+        model.addAttribute("employees", list);
         model.addAttribute("title","All Employees");
 
         return "employee/roster";

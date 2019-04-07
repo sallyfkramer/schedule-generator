@@ -3,6 +3,7 @@ package Schedule.Schedule.Generator.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Entity
@@ -25,6 +26,9 @@ public class Post {
 
     @ManyToOne
     private Training training;
+
+    @ManyToMany(mappedBy = "posts")
+    private List<Schedule> schedules;
 
 
     public Post(String name, String description, Priority priority){

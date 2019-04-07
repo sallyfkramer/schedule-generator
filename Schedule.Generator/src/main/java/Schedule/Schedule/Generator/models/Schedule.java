@@ -3,7 +3,7 @@ package Schedule.Schedule.Generator.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Schedule {
@@ -20,7 +20,10 @@ public class Schedule {
     private Shift shift;
 
     @ManyToMany
-    private Set<Employee> employees;
+    private List<Employee> employees;
+
+    @ManyToMany
+    private List<Post> posts;
 
 
     public Schedule(){}
@@ -45,15 +48,29 @@ public class Schedule {
         this.shift = shift;
     }
 
-    public Set<Employee> getRoster() {
+    public List<Employee> getRoster() {
         return employees;
     }
 
-    public void setRoster(Set<Employee> roster) {
+    public void setRoster(List<Employee> roster) {
         this.employees = roster;
     }
 
     public void addEmployee(Employee employee) {employees.add(employee);}
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
 
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 }

@@ -16,7 +16,8 @@
 
 <p th:unless="${employees.size()}"><i>No employees yet</i></p>
 
-<a th:href="'/schedule/add-roster/' + ${scheduleId}">Add/Edit Roster</a>
+<a th:href="'/schedule/add-roster/' + ${scheduleId}">Add/Edit Roster</a>|
+<a th:href="'/schedule/edit-posts/' + ${scheduleId}">Edit Posts</a>
 
 
 </body>

@@ -3,6 +3,8 @@ package Schedule.Schedule.Generator.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,7 +29,7 @@ public class Employee {
     private Set<Shift> shifts;
 
     @ManyToMany
-    private Set<Schedule> schedules;
+    private List<Schedule> schedules;
 
     public Employee() { }
 
@@ -76,12 +78,27 @@ public class Employee {
         this.shifts = shifts;
     }
 
-    public Set<Schedule> getSchedules() {
+    public List<Schedule> getSchedules() {
         return schedules;
     }
 
-    public void setSchedules(Set<Schedule> schedules) {
+    public void setSchedules(List<Schedule> schedules) {
         this.schedules = schedules;
+    }
+
+    public static class EmployeeSortingComparator implements Comparator<Employee> {
+
+        public int compare(Employee employee1, Employee employee2) {
+
+            int LastNameCompare = employee1.getLastName().compareTo(employee2.getLastName());
+            int FirstNameCompare = employee1.getFirstName().compareTo(employee2.getFirstName());
+
+            if (LastNameCompare == 0) {
+                return ((FirstNameCompare == 0) ? LastNameCompare : FirstNameCompare);
+            } else {
+                return LastNameCompare;
+            }
+        }
     }
 
 

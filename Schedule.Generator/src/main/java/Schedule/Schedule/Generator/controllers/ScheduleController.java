@@ -1,9 +1,8 @@
 package Schedule.Schedule.Generator.controllers;
 
-import Schedule.Schedule.Generator.models.Employee;
-import Schedule.Schedule.Generator.models.Schedule;
-import Schedule.Schedule.Generator.models.Shift;
+import Schedule.Schedule.Generator.models.*;
 import Schedule.Schedule.Generator.models.data.EmployeeDao;
+import Schedule.Schedule.Generator.models.data.PostDao;
 import Schedule.Schedule.Generator.models.data.ScheduleDao;
 import Schedule.Schedule.Generator.models.data.ShiftDao;
 import Schedule.Schedule.Generator.models.forms.AddRosterForm;
@@ -14,7 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("schedule")
@@ -28,6 +27,9 @@ public class ScheduleController {
 
     @Autowired
     private EmployeeDao employeeDao;
+
+    @Autowired
+    private PostDao postDao;
 
 //    Index displays a list of schedules by name.
 
@@ -70,8 +72,15 @@ public class ScheduleController {
     public String viewSchedule(Model model, @PathVariable int scheduleId) {
         Schedule schedule = scheduleDao.findById(scheduleId).orElse(null);
 
+        Iterable<Employee> allEmployees = schedule.getRoster();
+        List<Employee> list = new ArrayList<Employee>();
+        for (Employee employee:allEmployees) {
+            list.add(employee);
+        }
+        Collections.sort(list, new Employee.EmployeeSortingComparator());
+
         model.addAttribute("title", schedule.getName());
-        model.addAttribute("employees", schedule.getRoster());
+        model.addAttribute("employees", list);
         model.addAttribute("scheduleId", schedule.getId());
         model.addAttribute("count", schedule.getRoster().size());
         model.addAttribute("shift", schedule.getShift());
@@ -88,11 +97,17 @@ public class ScheduleController {
 
         Schedule schedule = scheduleDao.findById(scheduleId).orElse(null);
         Iterable<Employee> allEmployees = employeeDao.findAll();
+        List<Employee> list = new ArrayList<Employee>();
+        for (Employee employee:allEmployees) {
+                list.add(employee);
+            }
+        Collections.sort(list, new Employee.EmployeeSortingComparator());
+
         if (schedule.getRoster().isEmpty())
             schedule.setRoster(schedule.getShift().getEmployees());
 
         model.addAttribute("title", "Edit roster");
-        model.addAttribute("form", new AddRosterForm(schedule, allEmployees));
+        model.addAttribute("form", new AddRosterForm(schedule, list));
         return "schedule/add-roster";
     }
 
@@ -106,7 +121,8 @@ public class ScheduleController {
         }
 
         Schedule theSchedule = scheduleDao.findById(form.getScheduleId()).orElse(null);
-        Set<Employee> thisRoster = form.getSchedule().getRoster();
+        List<Employee> thisRoster = form.getSchedule().getRoster();
+
 
         theSchedule.setRoster(thisRoster);
         scheduleDao.save(theSchedule);
@@ -114,6 +130,35 @@ public class ScheduleController {
         return "redirect:/schedule/view/" + form.getScheduleId();
 
     }
+
+    @RequestMapping(value = "edit-posts/{scheduleId}", method = RequestMethod.GET)
+    public String editPostForm(Model model, @PathVariable int scheduleId){
+
+        Schedule schedule = scheduleDao.findById(scheduleId).orElse(null);
+        Iterable<Post> allPosts =  postDao.findAll();
+        List<Post> list = new ArrayList<>();
+        for (Post post:allPosts){
+            if(post.getPriority()== Priority.URGENT)
+                list.add(post);
+            else if (post.getPriority()== Priority.MANDATORY)
+                list.add(post);
+            else if (post.getPriority()==Priority.PREFERRED)
+                list.add(post);
+            else if(post.getPriority()== Priority.STRONG)
+                list.add(post);
+        }
+        int rosterCount =  schedule.getRoster().size();
+        if (schedule.getPosts().isEmpty())
+            schedule.setPosts(list);
+
+        model.addAttribute("title", "Edit Post List");
+        model.addAttribute("form", new AddRosterForm());
+
+//        TODO:keep working to get this working
+
+        return "schedule/edit-posts";
+    }
+}
 
 //    TODO: create post list edit page that redirects if the number of posts
 //     doesn't equal the number of employees. Should list posts by priority level

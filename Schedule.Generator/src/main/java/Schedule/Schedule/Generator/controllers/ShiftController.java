@@ -1,5 +1,6 @@
 package Schedule.Schedule.Generator.controllers;
 
+import Schedule.Schedule.Generator.models.Employee;
 import Schedule.Schedule.Generator.models.Shift;
 import Schedule.Schedule.Generator.models.data.ShiftDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("shift")
@@ -53,8 +57,15 @@ public class ShiftController {
     @RequestMapping(value = "view/{shiftId}", method = RequestMethod.GET)
     public String viewShift(Model model, @PathVariable int shiftId) {
         Shift shift = shiftDao.findById(shiftId).orElse(null);
+        Iterable<Employee> employees= shift.getEmployees();
+        List<Employee> list = new ArrayList<Employee>();
+        for (Employee employee:employees){
+            list.add(employee);
+        }
+        Collections.sort(list, new Employee.EmployeeSortingComparator());
+
         model.addAttribute("title", shift.getName());
-        model.addAttribute("employees", shift.getEmployees());
+        model.addAttribute("employees", list);
         model.addAttribute("shiftId", shift.getId());
         model.addAttribute("count", shift.getEmployees().size() );
 
