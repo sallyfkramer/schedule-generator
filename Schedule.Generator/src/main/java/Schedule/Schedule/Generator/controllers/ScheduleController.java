@@ -6,6 +6,8 @@ import Schedule.Schedule.Generator.models.data.PostDao;
 import Schedule.Schedule.Generator.models.data.ScheduleDao;
 import Schedule.Schedule.Generator.models.data.ShiftDao;
 import Schedule.Schedule.Generator.models.forms.AddRosterForm;
+import Schedule.Schedule.Generator.models.forms.EditPostsForm;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -136,6 +138,7 @@ public class ScheduleController {
 
         Schedule schedule = scheduleDao.findById(scheduleId).orElse(null);
         Iterable<Post> allPosts =  postDao.findAll();
+
         List<Post> list = new ArrayList<>();
         for (Post post:allPosts){
             if(post.getPriority()== Priority.URGENT)
@@ -147,20 +150,69 @@ public class ScheduleController {
             else if(post.getPriority()== Priority.STRONG)
                 list.add(post);
         }
-        int rosterCount =  schedule.getRoster().size();
+
         if (schedule.getPosts().isEmpty())
             schedule.setPosts(list);
 
-        model.addAttribute("title", "Edit Post List");
-        model.addAttribute("form", new AddRosterForm());
+        int rosterCount =  schedule.getRoster().size();
 
-//        TODO:keep working to get this working
+        EditPostsForm editPostsForm = new EditPostsForm(allPosts,schedule,rosterCount);
+
+        model.addAttribute("title", "Edit Post List");
+        model.addAttribute("form", editPostsForm);
 
         return "schedule/edit-posts";
     }
+
+    @RequestMapping(value = "edit-posts", method = RequestMethod.POST)
+    public String processEditPostsForm(Model model, @ModelAttribute @Valid EditPostsForm form, Errors errors){
+
+        Iterable<Post> allPosts =  postDao.findAll();
+        EditPostsForm wholeForm = new EditPostsForm(allPosts,form.getSchedule(),form.getRosterCount());
+
+//        if (errors.hasErrors())
+//        {
+//            model.addAttribute("title", "Edit Posts");
+//            model.addAttribute("form", wholeForm);
+//            return "schedule/edit-posts";
+//        }
+
+        Schedule theSchedule = scheduleDao.findById(form.getScheduleId()).orElse(null);
+        List<Post> thisPosts = form.getSchedule().getPosts();
+
+        if (thisPosts.size()!= form.getRosterCount())
+        {
+            if (thisPosts.size() > form.getRosterCount())
+            {
+                int difference = thisPosts.size()-form.getRosterCount();
+                model.addAttribute("form", wholeForm);
+                model.addAttribute("difference", difference);
+                model.addAttribute("title", "Too many posts by " + difference );
+                return "schedule/edit-posts";
+            }
+            else if (thisPosts.size() < form.getRosterCount())
+            {
+                int difference = form.getRosterCount()-thisPosts.size();
+                model.addAttribute("form", wholeForm);
+                model.addAttribute("difference", difference);
+                model.addAttribute("title", "Too few posts by " + difference );
+                return "schedule/edit-posts";
+            }
+        }
+//        TODO: get schedule id to pass through in form.
+
+        theSchedule.setPosts(thisPosts);
+        scheduleDao.save(theSchedule);
+
+        return "redirect:/schedule/view/" + theSchedule.getId();
+
+    }
+
+//    @RequestMapping(value = "schedule/(scheduleId}", method = RequestMethod.GET)
+//    public String generateSchedule(Model model, @PathVariable int scheduleId){
+//        Schedule schedule = scheduleDao.findById(scheduleId);
+//        for (Post post:schedule.getPosts()){
+//
+//        }
+//    }
 }
-
-//    TODO: create post list edit page that redirects if the number of posts
-//     doesn't equal the number of employees. Should list posts by priority level
-//      with checks starting at the top pre-checked for the number of employees.
-

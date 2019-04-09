@@ -2,7 +2,7 @@ package Schedule.Schedule.Generator.models.forms;
 
 import Schedule.Schedule.Generator.models.Employee;
 import Schedule.Schedule.Generator.models.Post;
-import Schedule.Schedule.Generator.models.Shift;
+import Schedule.Schedule.Generator.models.Schedule;
 
 
 import javax.validation.constraints.NotNull;
@@ -10,25 +10,28 @@ import javax.validation.constraints.NotNull;
 public class EditPostsForm {
 
     @NotNull
-    private int employeeId;
+    private int scheduleId;
 
     private Iterable<Post> allPosts;
 
-    private Employee employee;
+    private Schedule schedule;
+
+    private int rosterCount;
 
     public EditPostsForm(){}
 
-    public EditPostsForm(Iterable<Post> posts, Employee employee){
+    public EditPostsForm(Iterable<Post> allPosts, Schedule schedule,int rosterCount){
+        this.schedule = schedule;
         this.allPosts = allPosts;
-        this.employee = employee;
+        this.rosterCount = rosterCount;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public int getScheduleId() {
+        return scheduleId;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
     public Iterable<Post> getAllPosts() {
@@ -39,11 +42,19 @@ public class EditPostsForm {
         this.allPosts = allPosts;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+
+    public int getRosterCount() {
+        return rosterCount;
+    }
+
+    public void setRosterCount(int rosterCount) {
+        this.rosterCount = rosterCount;
     }
 }
