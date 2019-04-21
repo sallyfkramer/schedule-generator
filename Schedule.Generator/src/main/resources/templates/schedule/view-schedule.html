@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+<ul>
+    <li th:each="post : ${rankedPosts}" th:text="${post.name}"></li>
+</ul>
+
+</body>
+</html>

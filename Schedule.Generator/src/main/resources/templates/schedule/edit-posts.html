@@ -19,7 +19,7 @@
             </li>
         </ul>
     </div>
-    <input type="hidden" name="scheduleId" th:value="${form.schedule.id}"/>
+    <input type="hidden" name="scheduleId" th:value="*{schedule.id}"/>
     <input type="hidden" name="rosterCount" th:value="${form.rosterCount}">
     <input type="submit" value="Update Roster"/>
 </form>
