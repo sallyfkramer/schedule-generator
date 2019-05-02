@@ -3,6 +3,7 @@ package Schedule.Schedule.Generator.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,6 +30,10 @@ public class Post {
 
     @ManyToMany(mappedBy = "posts")
     private List<Schedule> schedules;
+
+    @OneToMany
+    @JoinColumn(name = "post_id")
+    private List<Pair> pairs= new ArrayList<>();
 
 
     public Post(String name, String description, Priority priority){
@@ -73,5 +78,21 @@ public class Post {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public List<Pair> getPairs() {
+        return pairs;
+    }
+
+    public void setPairs(List<Pair> pairs) {
+        this.pairs = pairs;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }

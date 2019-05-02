@@ -7,7 +7,6 @@ import Schedule.Schedule.Generator.models.data.ScheduleDao;
 import Schedule.Schedule.Generator.models.data.ShiftDao;
 import Schedule.Schedule.Generator.models.forms.AddRosterForm;
 import Schedule.Schedule.Generator.models.forms.EditPostsForm;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -3,6 +3,7 @@ package Schedule.Schedule.Generator.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,10 @@ public class Employee {
 
     @ManyToMany
     private List<Schedule> schedules;
+
+    @OneToMany
+    @JoinColumn(name = "employee_id")
+    private List<Pair> pairs = new ArrayList<>();
 
     public Employee() { }
 
@@ -84,6 +89,14 @@ public class Employee {
 
     public void setSchedules(List<Schedule> schedules) {
         this.schedules = schedules;
+    }
+
+    public List<Pair> getPairs() {
+        return pairs;
+    }
+
+    public void setPairs(List<Pair> pairs) {
+        this.pairs = pairs;
     }
 
     public static class EmployeeSortingComparator implements Comparator<Employee> {
